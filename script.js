@@ -71,16 +71,13 @@ function onMessageReceived(payload) {
     } else if (message.type === 'ROOM') {
         console.log(message.roomNumber);
         roomNumber = message.roomNumber;
+        startingPlayer = message.playerStarting;
     } else if (message.type === 'START') {
         stompClient.subscribe("/app/room/" + roomNumber, onMessageReceived)
         startGame();
     } else if (message.type === 'MOVE' && message.username !== username) {
         console.log('Received opponent move from server:', message.content);
         updateBoard(message.content, O_CLASS);
-        stompClient.send("/app/room/" + roomNumber,
-            {},
-            JSON.stringify({type: 'MOVE', username: username, content: cellIndex})
-        )
     }
 }
 
@@ -156,7 +153,7 @@ function sendMoveToServer(cellIndex) {
     console.log('Sending move data to server:', cellIndex);
     stompClient.send("/app/room/" + roomNumber,
         {},
-        JSON.stringify({type: 'MOVE', username: username, content: cellIndex})
+        JSON.stringify({type: 'MOVE', username: username, content: cellIndex.toString()})
     )
 
 }
@@ -172,6 +169,9 @@ function updateBoard(cellIndex, currentPlayer) {
         });
     }
 }
+
+
+
 
 // function getRandomEmptyCellIndex() {
 //     // Example function to get a random empty cell index
