@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="container">
+<div id="usernamePage" class="container">
+    <input type="text" id="nickname">
+    <button id="loginButton" onclick="connect()">Enter the game</button>
+</div>
+<div id="gamePage" class="container hidden">
     <h1>Tic Tac Toe</h1>
     <div id="board" class="board">
         <div class="cell" data-cell="0"></div>
@@ -23,6 +27,8 @@
     <p id="status" class="status"></p>
     <button id="restartButton" class="restart-button">Restart</button>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
